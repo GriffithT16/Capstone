@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate, Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -12,20 +13,21 @@ const HomePage = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        setCars(response.data);
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    };
     fetchCars();
   }, [token]);
+
+  const fetchCars = async () => {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/skydiver/", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      setCars(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
   return (
     <div className="container">
       <h1>Home Page for {user.username}!</h1>
@@ -35,6 +37,9 @@ const HomePage = () => {
             {car.year} {car.model} {car.make}
           </p>
         ))}
+      <Link to="/jumps" style={{ textDecoration: "none", color: "red" }}>
+        <b>Enter New Jump</b>
+      </Link>
     </div>
   );
 };

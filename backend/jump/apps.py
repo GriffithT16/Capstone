@@ -1,8 +1,6 @@
 from django.apps import AppConfig
 
 
-class SkydiverConfig(AppConfig):
+class JumpConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'skydiver'
-
-
+    name = 'jump'
