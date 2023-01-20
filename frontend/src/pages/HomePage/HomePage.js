@@ -40,6 +40,10 @@ const HomePage = () => {
       <Link to="/jumps" style={{ textDecoration: "none", color: "red" }}>
         <b>Enter New Jump</b>
       </Link>
+      <br></br>
+      <Link to="/weather" style={{ textDecoration: "none", color: "red" }}>
+        <b>View Weather</b>
+      </Link>
     </div>
   );
 };

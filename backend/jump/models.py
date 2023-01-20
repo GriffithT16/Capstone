@@ -12,3 +12,4 @@ class Jump(models.Model):
     altitude = models.IntegerField()
     freefall = models.IntegerField()
     description = models.CharField(max_length=500)
+    weather = models.CharField(max_length=100)
