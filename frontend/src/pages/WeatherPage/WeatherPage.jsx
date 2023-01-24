@@ -92,7 +92,7 @@ const WeatherPage = (props) => {
   }  
      
   return (
-    <div>
+    <div className="background-img">
       <h1 className="font-link title">Current Weather</h1>
       <div className="searched-chart">
         <table className="table table-striped">

@@ -9,6 +9,7 @@ import axios from "axios";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import MapPage from "./pages/MapPage/MapPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -18,6 +19,7 @@ import JumpForm from "./components/JumpForm/JumpForm";
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
 import WeatherPage from "./pages/WeatherPage/WeatherPage";
+import ViewJumps from "./pages/ViewJumps/ViewJumps";
 
 function App() {
   const [lat, setLat] = useState(null);
@@ -63,6 +65,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/jumps" element={<JumpForm weather={weather} />} />
         <Route path="/weather" element={<WeatherPage lat={lat} lng={lng} getLocation={getLocation}/>} />
+        <Route path="/map" element={<MapPage lat={lat} lng={lng} getLocation={getLocation}/>} />
+        <Route path="/log" element={<ViewJumps lat={lat} lng={lng} getLocation={getLocation}/>} />
       </Routes>
       <Footer />
     </div>

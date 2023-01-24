@@ -18,6 +18,7 @@ const JumpForm = (props) => {
   
 
   const weatherForJump = JSON.stringify(props.weather)
+  // Nevin's Example const thing = `Tempurazture:${props.weather.temp} `
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -60,18 +61,20 @@ const JumpForm = (props) => {
   }
 
   return (
-    <div>
+    <div className="background-img">
       <form onSubmit={handleSubmit}>
         <div
           style={{
             color: "white",
-            backgroundColor: "#764134",
+            backgroundColor: "transparent",
             borderStyle: "solid",
             borderWidth: "2px",
             borderColor: "black",
+            marginTop: "0rem",
             margin: "1em",
             borderRadius: ".75em",
             boxShadow: "10px 5px 5px #764134",
+            opacity: "50%"
           }}
         >
           <input
@@ -123,13 +126,13 @@ const JumpForm = (props) => {
             onChange={(event) => setDescription(event.target.value)}
           />          
         </div>
-        <button type="submit" className="btn btn-dark">
+        <button type="submit" className="btn btn-dark" style={{"margin-left": "1em"}}>
           Log Jump
         </button>
         {/* <p>{jumps}</p> */}
       </form>
       <div>
-        <h1 className="font-link title">Logged Jumps</h1>
+        <h1 className="font-link title" style={{"margin-left": "7em"}}>Logged Jumps</h1>
         <div className="searched-chart">
           <table className="table table-striped">
             <thead>

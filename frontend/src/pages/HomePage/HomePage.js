@@ -8,41 +8,49 @@ import axios from "axios";
 const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
-  //TODO: Add an AddCars Page to add a car for a logged in user's garage
+
   const [user, token] = useAuth();
-  const [cars, setCars] = useState([]);
+  const [jumps, setJumps] = useState([]);
 
   useEffect(() => {
-    fetchCars();
+    fetchJumps();
   }, [token]);
 
-  const fetchCars = async () => {
+  const fetchJumps = async () => {
     try {
       let response = await axios.get("http://127.0.0.1:8000/api/skydiver/", {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      setCars(response.data);
+      setJumps(response.data);
     } catch (error) {
       console.log(error.response.data);
     }
   };
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
-      {cars &&
-        cars.map((car) => (
-          <p key={car.id}>
-            {car.year} {car.model} {car.make}
+      <h1>{user.username}'s Skydiving Log!</h1>
+      {jumps &&
+        jumps.map((jump) => (
+          <p key={jump.id}>
+            {jump.year}
           </p>
         ))}
-      <Link to="/jumps" style={{ textDecoration: "none", color: "red" }}>
+      <Link to="/log" style={{ textDecoration: "none", color: "aqua" }}>
+        <b>View Jumps</b>
+      </Link>
+      <br></br>
+      <Link to="/jumps" style={{ textDecoration: "none", color: "blue" }}>
         <b>Enter New Jump</b>
       </Link>
       <br></br>
       <Link to="/weather" style={{ textDecoration: "none", color: "red" }}>
         <b>View Weather</b>
+      </Link>
+      <br></br>
+      <Link to="/map" style={{ textDecoration: "none", color: "green" }}>
+        <b>View Map</b>
       </Link>
     </div>
   );
