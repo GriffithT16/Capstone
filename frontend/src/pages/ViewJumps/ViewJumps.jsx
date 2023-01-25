@@ -25,14 +25,18 @@ const ViewJumps = (props) => {
 
 
   async function fetchJumps() {
-    let response = await axios.get("http://127.0.0.1:8000/api/jump/all/");
+    let response = await axios.get("http://127.0.0.1:8000/api/jump/", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
     console.log("response from axios", response.data);
     setJumps(response.data);
   }
 
   return (  
         <div className="background-img">
-        <h1 className="font-link title" style={{"margin-left": "7em"}}>Logged Jumps</h1>
+        <h1 className="font-link title" style={{"margin-left": "7em"}}>{user.username} Logged Jumps</h1>
         <div className="searched-chart">
           <table className="table table-striped">
             <thead>
@@ -54,7 +58,7 @@ const ViewJumps = (props) => {
                 .reverse()
                 .map((el) => {
                   return (
-                    <tr key={el.id}>                   
+                    <tr key={el.user}>                   
                       <td>{el.id}</td>
                       <td>{el.date}</td>
                       <td>{el.place}</td>

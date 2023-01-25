@@ -17,7 +17,7 @@ const JumpForm = (props) => {
   const [user, token] = useAuth();
   
 
-  const weatherForJump = JSON.stringify(props.weather)
+  const weatherForJump = `Temp:${props.weather.temperature} Wind Speed:${props.weather.windspeed} Wind Direction:${props.weather.winddirection}`
   // Nevin's Example const thing = `Tempurazture:${props.weather.temp} `
 
   function handleSubmit(event) {
@@ -34,6 +34,7 @@ const JumpForm = (props) => {
       freefall: freefall,
       description: description,
       weather: weatherForJump,
+      user: user
     }; 
     console.log('object we arre trying to post',newJump) 
     addNewJump(newJump);
@@ -55,7 +56,11 @@ const JumpForm = (props) => {
   }
 
   async function fetchJumps() {
-    let response = await axios.get("http://127.0.0.1:8000/api/jump/all/");
+    let response = await axios.get("http://127.0.0.1:8000/api/jump/", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     console.log("response from axios", response.data, props.weather);
     setJumps(response.data);
   }
