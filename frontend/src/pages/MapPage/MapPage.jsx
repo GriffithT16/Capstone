@@ -5,8 +5,10 @@ import {
   Autocomplete,
   Marker,
   DirectionsRenderer,
+  StandaloneSearchBox,
 } from "@react-google-maps/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const containerStyle = {
   width: "800px",
@@ -19,24 +21,48 @@ function MapPage(props) {
     lng: props.lng,
   };
 
-  const onLoadMarker = (marker) => {
-    console.log("marker: ", marker);
-  };
+  const onLoadMarker = (marker) => {};
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   const [autocomplete, setAutoComplete] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(5);
+  const [longitude, setLongitude] = useState(5);
   const [address, setAddress] = useState();
+  const [dz, setDz] = useState(null);
 
   const position = {
     lat: latitude,
     lng: longitude,
   };
 
+  const nearby = {
+    lat: props.latA,
+    lng: props.lngA,
+  };
+  const nearbyb = {
+    lat: props.latB,
+    lng: props.lngB,
+  };
+  const nearbyc = {
+    lat: props.latC,
+    lng: props.lngC,
+  };
+  const nearbyd = {
+    lat: props.latD,
+    lng: props.lngD,
+  };
+  const nearbye = {
+    lat: props.latE,
+    lng: props.lngE,
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCA5nB4DmZh91lOhVk86-klyBy2Mup3bAE",
-    libraries: ["places"],
+    googleMapsApiKey: process.env.REACT_APP_API_KEY,
+    libraries: props.library,
   });
 
   const [map, setMap] = React.useState(null);
@@ -45,6 +71,7 @@ function MapPage(props) {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
     setMap(map);
+    console.log("COORDS", props.lat, props.lng, latitude, longitude);
   }, []);
 
   const onUnmount = React.useCallback(function callback(map) {
@@ -64,13 +91,26 @@ function MapPage(props) {
       console.log("Actual Address", address.adr_address);
       setLatitude(address.geometry.location.lat);
       setLongitude(address.geometry.location.lng);
+      console.log("COORDS", props.lat, props.lng, latitude, longitude);
     } else {
       console.log("Autocomplete is not loaded yet!");
     }
   };
 
+  async function fetchLocations() {
+    let response = await axios.get("http://127.0.0.1:8000/api/jump/locations/");
+
+    console.log(response.data);
+  }
+
   return isLoaded ? (
     <div style={{ left: "50%", marginLeft: "-400px", position: "absolute" }}>
+      {/* <StandaloneSearchBox
+        onLoad={onLoadSeachBox}
+        onPlacesChanged={onPlacesChanged}> 
+            <input type="text" value="Skydiving"></input>
+        </StandaloneSearchBox>
+        <button onClick={onPlacesChanged}>Click for locations</button> */}
       <GoogleMap
         id="marker-example"
         mapContainerStyle={containerStyle}
@@ -107,8 +147,32 @@ function MapPage(props) {
         {/* Searched Place Marker */}
         <Marker
           onLoad={onLoadMarker}
-          center={position}
           position={position}
+          onPlaceChanged={onPlaceChanged}
+        />
+        <Marker
+          onLoad={onLoadMarker}
+          position={nearby}
+          onPlaceChanged={onPlaceChanged}
+        />
+        <Marker
+          onLoad={onLoadMarker}
+          position={nearbyb}
+          onPlaceChanged={onPlaceChanged}
+        />
+        <Marker
+          onLoad={onLoadMarker}
+          position={nearbyc}
+          onPlaceChanged={onPlaceChanged}
+        />
+        <Marker
+          onLoad={onLoadMarker}
+          position={nearbyd}
+          onPlaceChanged={onPlaceChanged}
+        />
+        <Marker
+          onLoad={onLoadMarker}
+          position={nearbye}
           onPlaceChanged={onPlaceChanged}
         />
         {/* Current Location Marker */}
@@ -117,9 +181,9 @@ function MapPage(props) {
           position={center}
           onPlaceChanged={onPlaceChanged}
         />
-        <DirectionsRenderer></DirectionsRenderer>
+        {/* <DirectionsRenderer directions={this.state.directions} /> */}
       </GoogleMap>
-      <div style={{position: "absolute"}}>
+      <div style={{ position: "absolute" }}>
         <h4>
           <a href={address?.website}>{address?.name}</a>
         </h4>
@@ -132,7 +196,20 @@ function MapPage(props) {
         <p>{address?.current_opening_hours?.weekday_text[4]}</p>
         <p>{address?.current_opening_hours?.weekday_text[5]}</p>
         <p>{address?.current_opening_hours?.weekday_text[6]}</p>
+        <div>
+          <h4>{props.locations.results[0].name}</h4>
+          <p>{props.locations.results[0].formatted_address}</p>
+          <h4>{props.locations.results[1].name}</h4>
+          <p>{props.locations.results[1].formatted_address}</p>
+          <h4>{props.locations.results[2].name}</h4>
+          <p>{props.locations.results[2].formatted_address}</p>
+          <h4>{props.locations.results[3].name}</h4>
+          <p>{props.locations.results[3].formatted_address}</p>
+          <h4>{props.locations.results[4].name}</h4>
+          <p>{props.locations.results[4].formatted_address}</p>
+        </div>
       </div>
+      <br></br>
 
       <></>
     </div>

@@ -2,23 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const ViewJumps = (props) => {
-  const [id, setId] = useState("");
-  const [jumpnum, setJumpnum] = useState("");
-  const [date, setDate] = useState("");
-  const [place, setPlace] = useState("");
-  const [aircraft, setAircraft] = useState("");
-  const [equipment, setEquipment] = useState("");
-  const [altitude, setAltitude] = useState("");
-  const [freefall, setFreefall] = useState("");
-  const [description, setDescription] = useState("");
-  const [jumps, setJumps] = useState([]);
-  const [cw, setCw] = useState();
+const ViewJumps = (props) => {    
+  const [jumps, setJumps] = useState([]);  
   const [user, token] = useAuth();
   
-
-
-
   useEffect(() => {
     fetchJumps();
   }, []);
@@ -59,7 +46,7 @@ const ViewJumps = (props) => {
                 .map((el) => {
                   return (
                     <tr key={el.user}>                   
-                      <td>{el.id}</td>
+                      <td>{el.jumpnum}</td>
                       <td>{el.date}</td>
                       <td>{el.place}</td>
                       <td>{el.aircraft}</td>

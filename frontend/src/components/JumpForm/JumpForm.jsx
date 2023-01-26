@@ -15,14 +15,12 @@ const JumpForm = (props) => {
   const [jumps, setJumps] = useState([]);
   const [cw, setCw] = useState();
   const [user, token] = useAuth();
-  
 
-  const weatherForJump = `Temp:${props.weather.temperature} Wind Speed:${props.weather.windspeed} Wind Direction:${props.weather.winddirection}`
-  // Nevin's Example const thing = `Tempurazture:${props.weather.temp} `
+  const weatherForJump = `Temp:${props.weather.temperature} Wind Speed:${props.weather.windspeed} Wind Direction:${props.weather.winddirection}`;
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('weather', props.weather)
+    console.log("weather", props.weather);
     setId(props.id);
     let newJump = {
       jumpnum: jumpnum,
@@ -34,12 +32,12 @@ const JumpForm = (props) => {
       freefall: freefall,
       description: description,
       weather: weatherForJump,
-      user: user
-    }; 
-    console.log('object we arre trying to post',newJump) 
+      user: user,
+    };
+    console.log("object we arre trying to post", newJump);
     addNewJump(newJump);
     fetchJumps();
-    window.location.reload()
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -52,7 +50,7 @@ const JumpForm = (props) => {
         Authorization: "Bearer " + token,
       },
     });
-    console.log("New Jump", newJump);    
+    console.log("New Jump", newJump);
   }
 
   async function fetchJumps() {
@@ -79,7 +77,7 @@ const JumpForm = (props) => {
             margin: "1em",
             borderRadius: ".75em",
             boxShadow: "10px 5px 5px #764134",
-            opacity: "50%"
+            opacity: "50%",
           }}
         >
           <input
@@ -129,53 +127,71 @@ const JumpForm = (props) => {
             className="form-control"
             placeholder="Jump Description..."
             onChange={(event) => setDescription(event.target.value)}
-          />          
+          />
         </div>
-        <button type="submit" className="btn btn-dark" style={{"margin-left": "1em"}}>
+        <button
+          type="submit"
+          className="btn btn-dark"
+          style={{ "margin-left": "1em" }}
+        >
           Log Jump
         </button>
         {/* <p>{jumps}</p> */}
       </form>
-      <div>
-        <h1 className="font-link title" style={{"margin-left": "7em"}}>Logged Jumps</h1>
-        <div className="searched-chart">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th className="font-link">Jump Number</th>
-                <th className="font-link">Date</th>
-                <th className="font-link">DropZone</th>
-                <th className="font-link">Aircraft</th>
-                <th className="font-link">Equipment</th>
-                <th className="font-link">Altitude</th>
-                <th className="font-link">Freefall</th>
-                <th className="font-link">Jump Description</th>            
-                <th className="font-link">Jump Weather </th>                    
-              </tr>
-            </thead>
-            <tbody>
-              {jumps
-                .slice(0)
-                .reverse()
-                .map((el) => {
-                  return (
-                    <tr key={el.id}>                   
-                      <td>{el.id}</td>
-                      <td>{el.date}</td>
-                      <td>{el.place}</td>
-                      <td>{el.aircraft}</td>
-                      <td>{el.equipment}</td>
-                      <td>{el.altitude}</td>
-                      <td>{el.freefall}</td>
-                      <td>{el.description}</td>               
-                      <td>{el.weather}</td>         
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th className="font-link">Jump Number</th>
+                  <th className="font-link">Date</th>
+                  <th className="font-link">DropZone</th>
+                  <th className="font-link">Aircraft</th>
+                  <th className="font-link">Equipment</th>
+                  <th className="font-link">Altitude</th>
+                  <th className="font-link">Freefall</th>
+                  <th className="font-link">Jump Description</th>
+                  <th className="font-link">Jump Weather </th>
+                </tr>
+              </thead>
+              <tbody>
+                {jumps
+                  .slice(0)
+                  .reverse()
+                  .map((el) => {
+                    return (
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>{el.jumpnum}</td>
+                        <td>{el.date}</td>
+                        <td>{el.place}</td>
+                        <td>{el.aircraft}</td>
+                        <td>{el.equipment}</td>
+                        <td>{el.altitude}</td>
+                        <td>{el.freefall}</td>
+                        <td>{el.description}</td>
+                        <td>{el.weather}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary">
+                            <i class="far fa-eye"></i>
+                          </button>
+                          <button type="button" class="btn btn-success">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button type="button" class="btn btn-danger">
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      ;
     </div>
   );
 };

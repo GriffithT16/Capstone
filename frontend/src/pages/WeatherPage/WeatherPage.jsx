@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const WeatherPage = (props) => {
   const [weather, setWeather] = useState({});
   const [forecast, setForecast] = useState([])
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [status, setStatus] = useState(null);
-  const [winddirection_10m, setWinddirection_10m] = useState([]);
   const [weathercode, setWeathercode] = useState([])
 //   const [conditions, setConditions] = useState("")
   
-
+fetchWeather();
   useEffect(() => { 
     
-    fetchWeather();
+    // fetchWeather();
   }, []); 
 
 
@@ -28,8 +22,7 @@ const WeatherPage = (props) => {
     );
     console.log("Weather Data", response.data);     
     setWeather(response.data.current_weather);
-    setForecast(response.data);
-    setWinddirection_10m(response.data.hourly.winddirection_10m);
+    setForecast(response.data);    
     
     if (response.data.current_weather.weathercode === 0){
         setWeathercode("Clear Sky")}

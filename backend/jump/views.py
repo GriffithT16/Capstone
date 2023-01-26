@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from .models import Jump
 from .serializers import JumpSerializer
+import requests
 
 
 
@@ -31,3 +32,11 @@ def user_jumps(request):
         jumps = Jump.objects.filter(user_id=request.user.id)
         serializer = JumpSerializer(jumps, many=True)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_locations(request):
+    URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=skydive&key=AIzaSyCA5nB4DmZh91lOhVk86-klyBy2Mup3bAE'
+    res = requests.get(URL)
+    return Response(res.json())

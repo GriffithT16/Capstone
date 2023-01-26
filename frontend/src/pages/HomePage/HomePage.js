@@ -28,6 +28,8 @@ const HomePage = () => {
       console.log(error.response.data);
     }
   };
+
+  
   return (
     <div className="container">
       <h1>{user.username}'s Skydiving Log!</h1>
@@ -38,19 +40,23 @@ const HomePage = () => {
           </p>
         ))}
       <Link to="/log" style={{ textDecoration: "none", color: "aqua" }}>
-        <b>View Jumps</b>
+        <h4>View Jumps</h4>
       </Link>
       <br></br>
       <Link to="/jumps" style={{ textDecoration: "none", color: "blue" }}>
-        <b>Enter New Jump</b>
+        <h4>Enter New Jump</h4>
       </Link>
       <br></br>
       <Link to="/weather" style={{ textDecoration: "none", color: "red" }}>
-        <b>View Weather</b>
+        <h4>View Weather</h4>
       </Link>
       <br></br>
       <Link to="/map" style={{ textDecoration: "none", color: "green" }}>
-        <b>View Map</b>
+        <h4>DZ's Nearby</h4>
+      </Link>
+      <br></br>
+      <Link to="/directions" style={{ textDecoration: "none", color: "orange" }} >
+        <h4>Get Directions</h4>
       </Link>
     </div>
   );
