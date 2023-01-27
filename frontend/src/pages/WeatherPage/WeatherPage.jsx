@@ -7,10 +7,10 @@ const WeatherPage = (props) => {
   const [weathercode, setWeathercode] = useState([])
 //   const [conditions, setConditions] = useState("")
   
-fetchWeather();
+// fetchWeather();
   useEffect(() => { 
     
-    // fetchWeather();
+    fetchWeather();
   }, []); 
 
 
@@ -20,7 +20,7 @@ fetchWeather();
       //   `https://api.weather.gov/points/${props.lat},${props.lng}`
       `https://api.open-meteo.com/v1/forecast?latitude=${props.lat}&longitude=${props.lng}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,windspeed_10m,windspeed_80m,windspeed_120m,windspeed_180m,winddirection_10m,winddirection_80m,winddirection_120m,winddirection_180m,windgusts_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago`
     );
-    console.log("Weather Data", response.data);     
+    // console.log("Weather Data", response.data);     
     setWeather(response.data.current_weather);
     setForecast(response.data);    
     

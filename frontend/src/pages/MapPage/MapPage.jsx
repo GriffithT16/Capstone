@@ -104,7 +104,8 @@ function MapPage(props) {
   }
 
   return isLoaded ? (
-    <div style={{ left: "50%", marginLeft: "-400px", position: "absolute" }}>
+    <div className="background">
+    <div style={{ left: "50%", marginLeft: "-400px", position: "absolute", marginTop: "1.5rem"}}>
       {/* <StandaloneSearchBox
         onLoad={onLoadSeachBox}
         onPlacesChanged={onPlacesChanged}> 
@@ -212,6 +213,7 @@ function MapPage(props) {
       <br></br>
 
       <></>
+    </div>
     </div>
   ) : (
     <></>

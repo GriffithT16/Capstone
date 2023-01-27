@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Jump
 from .serializers import JumpSerializer
 import requests
+from django.shortcuts import get_object_or_404
 
 
 
@@ -40,3 +41,19 @@ def get_locations(request):
     URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=skydive&key=AIzaSyCA5nB4DmZh91lOhVk86-klyBy2Mup3bAE'
     res = requests.get(URL)
     return Response(res.json())
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def jump_detail(request, pk):
+    jump = get_object_or_404(Jump, pk=pk)
+    if request.method == 'GET':
+        serializer = JumpSerializer(jump)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = JumpSerializer(jump, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(jump_id=pk)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        jump.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -4,6 +4,8 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+
 
 // Pages Imports
 import HomePage from "./pages/HomePage/HomePage";
@@ -93,7 +95,7 @@ function App() {
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/jumps" element={<JumpForm weather={weather} />} />
+        <Route path="/jumps" element={<JumpForm weather={weather} DirectionsPage={DirectionsPage} />} />
         <Route
           path="/weather"
           element={
@@ -124,7 +126,7 @@ function App() {
         />
         <Route
           path="/log"
-          element={<ViewJumps lat={lat} lng={lng} getLocation={getLocation} />}
+          element={<ViewJumps lat={lat} lng={lng} getLocation={getLocation} weather={weather}/>}
         />
         <Route
           path="/directions"

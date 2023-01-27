@@ -10,11 +10,14 @@ li {
 
 .navBar {
   /* background-color: aqua; */
-  background-image: url('./sky.jpg');
   box-shadow: 4px 2px 5px gray;
   color: white;
-  margin-bottom: 1rem;
+  margin-bottom: .1rem;
   padding: 1.5rem 2rem;
+  background: #dd5e89;
+  background: -webkit-linear-gradient(to left, blue, lightgrey);
+  background: linear-gradient(to left, blue, lightgrey);
+  
 }
 
 .navBar button {

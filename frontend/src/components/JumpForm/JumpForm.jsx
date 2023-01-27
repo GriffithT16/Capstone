@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
+
 const JumpForm = (props) => {
   const [id, setId] = useState("");
   const [jumpnum, setJumpnum] = useState("");
@@ -16,7 +17,7 @@ const JumpForm = (props) => {
   const [cw, setCw] = useState();
   const [user, token] = useAuth();
 
-  const weatherForJump = `Temp:${props.weather.temperature} Wind Speed:${props.weather.windspeed} Wind Direction:${props.weather.winddirection}`;
+  const weatherForJump = `\nTemp:${props.weather.temperature}\n Wind Speed:${props.weather.windspeed}\n Wind Direction:${props.weather.winddirection}\n`;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -59,8 +60,19 @@ const JumpForm = (props) => {
         Authorization: "Bearer " + token,
       },
     });
-    console.log("response from axios", response.data, props.weather);
+    console.log("response from axios", response.data, props.weather, id);
     setJumps(response.data);
+  }
+
+  async function handleDelete(id) {
+
+    let response = await axios.delete(
+      `http://127.0.0.1:8000/api/jump/${id}/`
+    );
+    if (response.status === 204) {
+      fetchJumps();
+      return true;
+    }
   }
 
   return (
@@ -138,9 +150,9 @@ const JumpForm = (props) => {
         </button>
         {/* <p>{jumps}</p> */}
       </form>
-      <div class="container">
+      <div>
         <div class="row">
-          <div class="col-12">
+          <div class="searched-chart">
             <table class="table table-bordered">
               <thead>
                 <tr>
@@ -162,7 +174,6 @@ const JumpForm = (props) => {
                   .map((el) => {
                     return (
                       <tr>
-                        <th scope="row">1</th>
                         <td>{el.jumpnum}</td>
                         <td>{el.date}</td>
                         <td>{el.place}</td>
@@ -170,17 +181,18 @@ const JumpForm = (props) => {
                         <td>{el.equipment}</td>
                         <td>{el.altitude}</td>
                         <td>{el.freefall}</td>
-                        <td>{el.description}</td>
+                        <td><b>{el.description}</b></td>
                         <td>{el.weather}</td>
                         <td>
-                          <button type="button" class="btn btn-primary">
-                            <i class="far fa-eye"></i>
+                          <button type="button" className="btn btn-success">
+                            <i className="fas fa-edit">Edit</i>
                           </button>
-                          <button type="button" class="btn btn-success">
-                            <i class="fas fa-edit"></i>
-                          </button>
-                          <button type="button" class="btn btn-danger">
-                            <i class="far fa-trash-alt"></i>
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            onClick={() => handleDelete(el.id)}
+                          >
+                            <i class="far fa-trash-alt">Delete</i>
                           </button>
                         </td>
                       </tr>

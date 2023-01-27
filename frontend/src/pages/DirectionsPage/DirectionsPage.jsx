@@ -1,38 +1,36 @@
-import React, { useState } from "react";
-import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
-/* global google */
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-const Map = ({ formattedOrigin, formattedDestination }) => {
-  const DirectionsService = new window.google.maps.DirectionsService();
-  let [directions, setDirections] = useState("");
+function Example(props) {
+  const [show, setShow] = useState(false);
 
-  const origin = { lat: 40.756795, lng: -73.954298 };
-  const destination = { lat: 41.756795, lng: -78.954298 };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   
-
-  DirectionsService.route(
-    {
-      origin: formattedOrigin,
-      destination: formattedDestination,
-      travelMode: google.maps.TravelMode.DRIVING,
-    },
-    (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        setDirections(result);
-      } else {
-        console.error(`error fetching directions ${result}`);
-      }
-    }
-  );
   return (
-    <section className="googleMap">
-      <GoogleMap defaultZoom={9} defaultCenter={{ lat: 41.75, lng: 1.8 }}>
-        <Marker position={formattedOrigin} />
-        <Marker position={formattedDestination} />
-        {directions && <DirectionsRenderer directions={directions} />}
-      </GoogleMap>
-    </section>
-  );
-};
+    <>
+      <Button variant="primary" onClick={handleShow} style={{background: "lightskyblue"}}>
+        View Weather
+      </Button>
 
-export default Map;
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Weather Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{props.weather}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+export default(Example);

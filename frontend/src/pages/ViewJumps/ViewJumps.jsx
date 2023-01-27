@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import Example from "../DirectionsPage/DirectionsPage";
 
 const ViewJumps = (props) => {    
   const [jumps, setJumps] = useState([]);  
@@ -23,7 +24,7 @@ const ViewJumps = (props) => {
 
   return (  
         <div className="background-img">
-        <h1 className="font-link title" style={{"margin-left": "7em"}}>{user.username} Logged Jumps</h1>
+        <h1 className="font-link title" style={{"margin-left": "7em"}}>{user.username}'s Logged Jumps</h1>
         <div className="searched-chart">
           <table className="table table-striped">
             <thead>
@@ -54,7 +55,7 @@ const ViewJumps = (props) => {
                       <td>{el.altitude}</td>
                       <td>{el.freefall}</td>
                       <td>{el.description}</td>               
-                      <td>{el.weather}</td>         
+                      <Example weather={el.weather}/>        
                     </tr>
                   );
                 })}

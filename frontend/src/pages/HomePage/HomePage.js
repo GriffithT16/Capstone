@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 
 import axios from "axios";
+import Example from "../DirectionsPage/DirectionsPage";
 
 const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -29,35 +30,34 @@ const HomePage = () => {
     }
   };
 
-  
   return (
-    <div className="container">
-      <h1>{user.username}'s Skydiving Log!</h1>
-      {jumps &&
-        jumps.map((jump) => (
-          <p key={jump.id}>
-            {jump.year}
-          </p>
-        ))}
-      <Link to="/log" style={{ textDecoration: "none", color: "aqua" }}>
-        <h4>View Jumps</h4>
-      </Link>
-      <br></br>
-      <Link to="/jumps" style={{ textDecoration: "none", color: "blue" }}>
-        <h4>Enter New Jump</h4>
-      </Link>
-      <br></br>
-      <Link to="/weather" style={{ textDecoration: "none", color: "red" }}>
-        <h4>View Weather</h4>
-      </Link>
-      <br></br>
-      <Link to="/map" style={{ textDecoration: "none", color: "green" }}>
-        <h4>DZ's Nearby</h4>
-      </Link>
-      <br></br>
-      <Link to="/directions" style={{ textDecoration: "none", color: "orange" }} >
-        <h4>Get Directions</h4>
-      </Link>
+    <div className="background-img">
+      <div className="container">
+        <h1>{user.username}'s Skydiving Log!</h1>
+        {jumps && jumps.map((jump) => <p key={jump.id}>{jump.year}</p>)}
+        <Link to="/log" style={{ textDecoration: "none", color: "aqua" }}>
+          <h1>View Jumps</h1>
+        </Link>
+        <br></br>
+        <Link to="/jumps" style={{ textDecoration: "none", color: "blue" }}>
+          <h4>Enter New Jump</h4>
+        </Link>
+        <br></br>
+        <Link to="/weather" style={{ textDecoration: "none", color: "red" }}>
+          <h4>View Weather</h4>
+        </Link>
+        <br></br>
+        <Link to="/map" style={{ textDecoration: "none", color: "green" }}>
+          <h4>DZ's Nearby</h4>
+        </Link>
+        <br></br>
+        <Link
+          to="/directions"
+          style={{ textDecoration: "none", color: "orange" }}
+        >
+          <h4>Get Directions</h4>
+        </Link>        
+      </div>
     </div>
   );
 };
