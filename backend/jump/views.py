@@ -52,7 +52,7 @@ def jump_detail(request, pk):
     elif request.method == 'PUT':
         serializer = JumpSerializer(jump, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(jump_id=pk)
+        serializer.save(jump=pk)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         jump.delete()

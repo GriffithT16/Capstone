@@ -11,7 +11,7 @@ function Example(props) {
   
   return (
     <>
-      <Button variant="primary" onClick={handleShow} style={{background: "lightskyblue"}}>
+      <Button variant="btn btn-primary" onClick={handleShow} style={{background: "skyblue"}}>
         View Weather
       </Button>
 
@@ -23,10 +23,7 @@ function Example(props) {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          </Button>          
         </Modal.Footer>
       </Modal>
     </>

@@ -4,8 +4,6 @@ import {
   useJsApiLoader,
   Autocomplete,
   Marker,
-  DirectionsRenderer,
-  StandaloneSearchBox,
 } from "@react-google-maps/api";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -105,115 +103,114 @@ function MapPage(props) {
 
   return isLoaded ? (
     <div className="background">
-    <div style={{ left: "50%", marginLeft: "-400px", position: "absolute", marginTop: "1.5rem"}}>
-      {/* <StandaloneSearchBox
-        onLoad={onLoadSeachBox}
-        onPlacesChanged={onPlacesChanged}> 
-            <input type="text" value="Skydiving"></input>
-        </StandaloneSearchBox>
-        <button onClick={onPlacesChanged}>Click for locations</button> */}
-      <GoogleMap
-        id="marker-example"
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={9}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-        onClick={props.onMapClick}
+      <div
+        style={{
+          left: "50%",
+          marginLeft: "-400px",
+          position: "absolute",
+          marginTop: "1.5rem",
+        }}
       >
-        <Autocomplete
-          onLoad={onLoadAutoComplete}
-          onPlaceChanged={onPlaceChanged}
+        <GoogleMap
+          id="marker-example"
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={9}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          onClick={props.onMapClick}
+          style={{ boxShadow: "10px 5px 5px #764134", borderRadius: ".75em", opacity: "50%" }}
         >
-          <input
-            type="text"
-            placeholder="Enter Search Term..."
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-              position: "absolute",
-              left: "50%",
-              marginLeft: "-120px",
-            }}
+          <Autocomplete
+            onLoad={onLoadAutoComplete}
+            onPlaceChanged={onPlaceChanged}
+          >
+            <input
+              type="text"
+              placeholder="Enter Search Term..."
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px",
+              }}
+            />
+          </Autocomplete>
+          {/* Searched Place Marker */}
+          <Marker
+            onLoad={onLoadMarker}
+            position={position}
+            onPlaceChanged={onPlaceChanged}
           />
-        </Autocomplete>
-        {/* Searched Place Marker */}
-        <Marker
-          onLoad={onLoadMarker}
-          position={position}
-          onPlaceChanged={onPlaceChanged}
-        />
-        <Marker
-          onLoad={onLoadMarker}
-          position={nearby}
-          onPlaceChanged={onPlaceChanged}
-        />
-        <Marker
-          onLoad={onLoadMarker}
-          position={nearbyb}
-          onPlaceChanged={onPlaceChanged}
-        />
-        <Marker
-          onLoad={onLoadMarker}
-          position={nearbyc}
-          onPlaceChanged={onPlaceChanged}
-        />
-        <Marker
-          onLoad={onLoadMarker}
-          position={nearbyd}
-          onPlaceChanged={onPlaceChanged}
-        />
-        <Marker
-          onLoad={onLoadMarker}
-          position={nearbye}
-          onPlaceChanged={onPlaceChanged}
-        />
-        {/* Current Location Marker */}
-        <Marker
-          onLoad={onLoadMarker}
-          position={center}
-          onPlaceChanged={onPlaceChanged}
-        />
-        {/* <DirectionsRenderer directions={this.state.directions} /> */}
-      </GoogleMap>
-      <div style={{ position: "absolute" }}>
-        <h4>
-          <a href={address?.website}>{address?.name}</a>
-        </h4>
-        <p>{address?.formatted_address}</p>
-        <p>{address?.formatted_phone_number}</p>
-        <p>{address?.current_opening_hours?.weekday_text[0]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[1]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[2]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[3]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[4]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[5]}</p>
-        <p>{address?.current_opening_hours?.weekday_text[6]}</p>
-        <div>
-          <h4>{props.locations.results[0].name}</h4>
-          <p>{props.locations.results[0].formatted_address}</p>
-          <h4>{props.locations.results[1].name}</h4>
-          <p>{props.locations.results[1].formatted_address}</p>
-          <h4>{props.locations.results[2].name}</h4>
-          <p>{props.locations.results[2].formatted_address}</p>
-          <h4>{props.locations.results[3].name}</h4>
-          <p>{props.locations.results[3].formatted_address}</p>
-          <h4>{props.locations.results[4].name}</h4>
-          <p>{props.locations.results[4].formatted_address}</p>
+          <Marker
+            onLoad={onLoadMarker}
+            position={nearby}
+            onPlaceChanged={onPlaceChanged}
+          />
+          <Marker
+            onLoad={onLoadMarker}
+            position={nearbyb}
+            onPlaceChanged={onPlaceChanged}
+          />
+          <Marker
+            onLoad={onLoadMarker}
+            position={nearbyc}
+            onPlaceChanged={onPlaceChanged}
+          />
+          <Marker
+            onLoad={onLoadMarker}
+            position={nearbyd}
+            onPlaceChanged={onPlaceChanged}
+          />
+          <Marker
+            onLoad={onLoadMarker}
+            position={nearbye}
+            onPlaceChanged={onPlaceChanged}
+          />
+          {/* Current Location Marker */}
+          <Marker
+            onLoad={onLoadMarker}
+            position={center}
+            onPlaceChanged={onPlaceChanged}
+          />
+          {/* <DirectionsRenderer directions={this.state.directions} /> */}
+        </GoogleMap>
+        <div style={{ position: "absolute" }}>
+          <h4>
+            <a href={address?.website}>{address?.name}</a>
+          </h4>
+          <p>{address?.formatted_address}</p>
+          <p>{address?.formatted_phone_number}</p>
+          <p>{address?.current_opening_hours?.weekday_text[0]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[1]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[2]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[3]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[4]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[5]}</p>
+          <p>{address?.current_opening_hours?.weekday_text[6]}</p>
+          <div>
+            <h4>{props.locations.results[0].name}</h4>
+            <p>{props.locations.results[0].formatted_address}</p>
+            <h4>{props.locations.results[1].name}</h4>
+            <p>{props.locations.results[1].formatted_address}</p>
+            <h4>{props.locations.results[2].name}</h4>
+            <p>{props.locations.results[2].formatted_address}</p>
+            <h4>{props.locations.results[3].name}</h4>
+            <p>{props.locations.results[3].formatted_address}</p>
+            <h4>{props.locations.results[4].name}</h4>
+            <p>{props.locations.results[4].formatted_address}</p>
+          </div>
         </div>
       </div>
-      <br></br>
-
-      <></>
-    </div>
     </div>
   ) : (
     <></>
